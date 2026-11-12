@@ -23,7 +23,7 @@ $$\text{Total options} = \underbrace{4}_\text{period 1} \times \underbrace{3}_\t
 
 Now, there are 3 subjects left you can assign to the second period. Therefore, looking at only the first two periods, there are $4 \times 3$ options.
 
-You can picture this like a diverging path. At first, the path diverges into 4 (your choice for the first subject). And whichever one you follow will later diverge again into 3 (choosing the second subject).
+You can picture this like a diverging path. At first, the path diverges into 4 (your choice for the first subject). And whichever one you follow will later diverge again into 3 (choosing the second subject). This is why multiplication is used.
 
 <img src="assets/3.jpg" width="500">
 
@@ -48,13 +48,15 @@ Try this same scenario but with different numbers. For example, assigning 6 subj
 | 5 | 2 |
 | 6 | 1 |
 
-Notice the pattern here. When filling the first slot, there were $n$ options. Then, for each subsequent slot, the number of options lowers by 1. This repeats until the last slot, which always has 1 option.
+Notice the pattern here. When filling the first slot, there were $n$ options. Then, for each subsequent slot, the number of options lowers by 1. This repeats until the last slot, which always has 1 option. The product of all of the numbers is the number of possible schedules.
 
-The example we just analyzed involves **permutation**, the act of arranging objects in a specific order. And the calculation we discovered for calculating the number of permutations has a name, the **factorial**. It is written with an exclamation mark.
+The example we just analyzed involves **permutation**, the act of arranging objects in a specific order. And the operation we discovered for calculating the number of permutations has a name, the **factorial**. It is written with an exclamation mark.
 
 $$n! = n \times (n-1) \times (n-2) \times \cdots \times 3 \times 2 \times 1$$
 
-This can be used in many different cases. Deciding the presentation order of students, arranging books on a shelf, shuffling a deck of cards, etc. The last example is quite infamous, because the number of ways to arrange a deck of cards ($52!$) is an unimaginably large number ([watch this YouTube short](https://youtube.com/shorts/L0nmxIQWefA?si=hoB8cJr2hfmuJrbY)).
+In the first example, the number of ways to make a schedule containing 4 periods using 4 subjects is $4! = 4 \times 3 \times 2 \times 1 = 24$.
+
+The factorial can be used in many different cases. Deciding the presentation order of students, arranging books on a shelf, shuffling a deck of cards, etc. The last example is quite infamous, because the number of ways to arrange a deck of cards ($52!$) is an unimaginably large number ([watch this YouTube short](https://youtube.com/shorts/L0nmxIQWefA?si=hoB8cJr2hfmuJrbY)).
 
 
 ## Permutation of $n$ objects out of $r$ total objects
@@ -67,48 +69,77 @@ Start with $n!$ schedules containing $n$ periods (what we did before). Then, cho
 
 <img src="assets/5.jpg" width="500">
 
-We still have $n!$ schedules. But, you can see that the process left duplicate schedules, which shouldn't count as unique.
+We still have $n!$ schedules. But, you can see that this process left duplicate schedules, which shouldn't count as unique. Think about why this happens. 
 
-Think about why this happens. Looking at the two leftmost schedules for example, the only difference was in the permutation of the last $(n - r)$ subjects. But this disappears when you cut off the end of the schedule. 
+When a schedule has the same first $r$ subjects, but the last $(n - r)$ are in a different order, it results in a duplicate. And the last $(n - r)$ subjects can be ordered in $(n - r)!$ different ways. 
 
-Schedules that have the same first $r$ subjects and only differ in the last $(n - r)$ subjects end up being duplicates. 
+So, we must divide the amount of schedules by $(n - r)!$ to avoid counting the duplicates. 
 
-Let's say we choose biology and chemistry to fill the first two periods. How many ways can the remaining two ($4-2$) subjects—physics and history—fit into the final two periods?
+<img src="assets/7.jpg" width="500">
 
-Using the formula from before, it is simply $2! = 2$ ways. This means that there are 2 schedules that start with biology then chemistry, and have the other two subjects in any order. But since the last two periods got cut off, we will just end up with 2 duplicate schedules containing bio and chem.
-
-That's the key to solving our problem. Each unique schedule we are left with is repeated a total of 2 times (remember that 2 comes from $(4-2)!$), so we must divide the amount (24) by 2, giving us 12 as the final answer.
-
-Generalizing this to any number of objects, we started with $n$ total objects, but only had to fill $r$ slots. To get the result, we must divide $n!$ by the number of times each permutation is duplicated, which is equal to the number of permutations of the objects that got cut off, $(n-r)!$. This operation is written in a few different ways:
+And that is how to find the number of ways to permutate $r$ objects out of $n$ total objects. This operation can be notated in a few different ways, as seen below.
 
 $$_nP_r = \ ^nP_r = P(n, r) = \frac{n!}{(n-r)!}$$
+
+$$\frac{\overbrace{n!}^\text{initial \# of permutations}}{\underbrace{(n-r)!}_\text{remove exact duplicates}}$$
+
+Using this formula, the example can be solved like so.
+
+$$\text{Total ways} = \ _4P_2 = \frac{4!}{(4 - 2)!} = \frac{24}{2} = 12$$
 
 
 ## Combinations
 
-Permutation is useful when order *does* matter, like when making a schedule. But for students packing their backpacks the day before, they simply need to know what subjects there will be, *not in what order*. In essence, you are simply choosing 2 subjects out of the 4.
+Permutation is useful when order *does* matter, like when making a schedule. But for students deciding which books to bring for school, they simply need to know what subjects there will be, *not in what order*. When order doesn't matter, combinations are needed.
 
-So, if there are 4 subjects but only 2 periods, how many possible ways could a student need to pack their bag?
+Essentially, it is asking the question: "How many ways are there to choose $r$ objects out of $n$ total?" Using the example from before, $n = 4$ and $r = 2$.
 
 <img src="assets/6.jpg" width="500">
 
-These are the 12 permutations from the previous section. Again, we must get rid of duplicates. For instance, biology-chemistry requires the same books as chemistry-biology.
+There are $_nP_r$ possible permutations, as we know from the previous section. But again, we must get rid of duplicates. As a student packing your backpack, biology-chemistry requires the exact same books as chemistry-biology, so they should be considered the same.
 
-Each unique combination is repeated twice, but think about where the number 2 comes from. 
+Accounting for this is actually quite simple. Given any $r$ subjects, there are $r!$ ways to arrange them. Since $_nP_r$ counted all of them, just divide the total amount by $r!$ to correct it.
 
-Once you choose $r$ objects (the 2 subjects), there are $r! = 2! = 2$ ways to shuffle them in the schedule, which we must get rid of. Therefore, we divide 12 by 2, giving us 6 possible combinations (you can verify this manually).
+<img src="assets/8.jpg" width="500">
 
-In conclusion, the formula for the number of combinations is just the $_nP_r$ formula divided by $r!$. Again, this can be written in a few different ways, such as $_nC_r$, read as "$n$ choose $r$".
+In conclusion, the formula for the number of combinations is just the $_nP_r$ formula divided by $r!$. Again, this can be written in a few different ways, most commonly as $_nC_r$ or $\binom{n}{r}$, read as "$n$ choose $r$".
 
 $$_nC_r = \ ^nC_r = C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
 
+$$\frac{\overbrace{n!}^\text{initial \# of permutations}}{\underbrace{(n-r)!}_\text{remove exact duplicates}\underbrace{r!}_\text{stop caring about order}}$$
+
+We can calculate "4 choose 2" to solve the example.
+
+$$\text{Total ways} = \ _4C_2 = \frac{4!}{2!(4-2)!} = \frac{24}{2 \times 2} = 6$$
 
 ## Additional tips and tricks
 
-### $$_nC_r = \ _nC_{(n-r)}$$
-You can prove this pretty simply using the formula, but intuitively, it also makes sense. If you have 10 people and have to choose 8 from among them, it is the same as choosing 2 people to exclude.
+$$_nC_r = \ _nC_{(n-r)}$$
+You can prove this pretty simply using the formula, but intuitively, it also makes sense. If you have 10 objects, choosing 8 out of them is the same as choosing 2 to leave out of your choice.
 
-### $$_nC_0 = \ _nC_n = 1$$
-If you think about it, there is only 1 way to choose no one from a group of let's say 10 people, and there is also only 1 way to choose 10 people from 10 people.
+---
 
-### $$_nC_1 = \ _nC_{(n-1)} = n$$
+$$_nC_0 = \ _nC_n = 1$$
+If you think about it, if you have 10 objects, there is only one way to choose nothing, and also only one way to choose all 10 objects.
+
+---
+
+$$_nC_1 = \ _nC_{(n-1)} = n$$
+For instance, the number of ways to choose 1 object out of 10 objects is just 10. Choosing 9 objects is the same as choosing 1 to leave out.
+
+---
+
+$$_nC_r = \frac{\overbrace{n(n - 1)(n - 2) \cdots (n - r + 1)}^\text{first $r$ numbers of $n!$}}{r!}$$
+
+This is always a useful shortcut when calculating $_nC_r$. It makes it possible to mentally calculate some examples, like when $r = 2$. The proof is written below:
+
+> $$\begin{align*}
+_nC_r &= \frac{n!}{r!(n - r)!} \\
+&= \frac{n(n - 1) \cdots (n - r + 1)(n - r)\cdots(1)}{r!(n - r)!} \\
+&= \frac{n(n - 1) \cdots (n - r + 1)\cancel{(n - r)!}}{r!\cancel{(n - r)!}} \\
+&= \frac{n(n - 1) \cdots (n - r + 1)}{r!}
+\end{align*}$$
+
+Example:
+
+> $$_{10}C_2 = \frac{10(9)}{2!} = \frac{\overset{5}{\cancel{10}}(9)}{\cancel{2}} = 45$$
