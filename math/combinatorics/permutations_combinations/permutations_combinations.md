@@ -81,7 +81,7 @@ And that is how to find the number of ways to permutate $r$ objects out of $n$ t
 
 $$_nP_r = \ ^nP_r = P(n, r) = \frac{n!}{(n-r)!}$$
 
-$$\frac{\overbrace{n!}^\text{initial \# of permutations}}{\underbrace{(n-r)!}_\text{remove exact duplicates}}$$
+$$\frac{\overbrace{n!}^\text{initial number of permutations}}{\underbrace{(n-r)!}_\text{remove exact duplicates}}$$
 
 Using this formula, the example can be solved like so.
 
@@ -102,29 +102,35 @@ Accounting for this is actually quite simple. Given any $r$ subjects, there are 
 
 <img src="assets/8.jpg" width="500">
 
-In conclusion, the formula for the number of combinations is just the $_nP_r$ formula divided by $r!$. Again, this can be written in a few different ways, most commonly as $_nC_r$ or $\binom{n}{r}$, read as "$n$ choose $r$".
+In conclusion, the formula for the number of combinations is just the $_nP_r$ formula divided by $r!$. Again, this can be written in a few different ways, most commonly as $_nC_r$ or $\binom{n}{r}$, read as $n$ choose $r$.
 
 $$_nC_r = \ ^nC_r = C(n, r) = \binom{n}{r} = \frac{n!}{r!(n-r)!}$$
 
-$$\frac{\overbrace{n!}^\text{initial \# of permutations}}{\underbrace{(n-r)!}_\text{remove exact duplicates}\underbrace{r!}_\text{stop caring about order}}$$
+$$\frac{\overbrace{n!}^\text{initial number of permutations}}{\underbrace{(n-r)!}_\text{remove exact duplicates}\underbrace{r!}_\text{stop caring about order}}$$
 
-We can calculate "4 choose 2" to solve the example.
+We can calculate 4 choose 2 to solve the example.
 
 $$\text{Total ways} = \ _4C_2 = \frac{4!}{2!(4-2)!} = \frac{24}{2 \times 2} = 6$$
 
 ## Additional tips and tricks
 
 $$_nC_r = \ _nC_{(n-r)}$$
+
+
 You can prove this pretty simply using the formula, but intuitively, it also makes sense. If you have 10 objects, choosing 8 out of them is the same as choosing 2 to leave out of your choice.
 
 ---
 
 $$_nC_0 = \ _nC_n = 1$$
+
+
 If you think about it, if you have 10 objects, there is only one way to choose nothing, and also only one way to choose all 10 objects.
 
 ---
 
 $$_nC_1 = \ _nC_{(n-1)} = n$$
+
+
 For instance, the number of ways to choose 1 object out of 10 objects is just 10. Choosing 9 objects is the same as choosing 1 to leave out.
 
 ---
