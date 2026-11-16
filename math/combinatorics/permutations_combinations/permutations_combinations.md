@@ -63,9 +63,11 @@ The factorial can be used in many different cases. Deciding the presentation ord
 
 The student council is holding an election. Who will win, Cole or Leo?? Who cares, because the event is going to take up the last 2 periods of the day, leaving 2 left for regular classes. With this extra constraint, how many permutations of the schedule are left?
 
-$n$ is equal to 4, because there are still 4 subjects to choose from. However, we introduce a new variable, $r$, which represents how many of those subjects we can take. In this case, $r = 2$.
+$n$ is equal to 4, because there are still 4 subjects to choose from. However, we introduce a new variable, $r$, which represents how many of those subjects we can take. In this case, $r = 2$. 
 
 Start with $n!$ schedules containing $n$ periods (what we did before). Then, chop off the last $(n - r)$ periods from every possible schedule, leaving $r$ periods left in each.
+
+<img src="assets/9.jpg" width="250">
 
 <img src="assets/5.jpg" width="500">
 
